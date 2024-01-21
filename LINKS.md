@@ -1,11 +1,8 @@
 # LINKS
-[LINKS.md](Chapter One.md)
+[Chapter One](Chapter One.md)
 
+[Chapter Two](Chapter Two.md)
 
-[LINKS.md](Chapter Two.md)
+[Chapter Three](Chapter Three.md)
 
-
-[LINKS.md](Chapter Three.md)
-
-
-[LINKS.md](Chapter Four.md)
+[Chapter Four](Chapter Four.md)
