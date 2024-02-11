@@ -4,21 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greeting Page</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        th, td {
-            width: 30px;
-            height: 30px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 
@@ -29,73 +14,33 @@
 
     <button onclick="displayGreeting()">Submit</button>
 
-    <p id="greetingText"></p>
+    <p id="greetingText">Hello, ___</p>
 
-    <p>Hello, ___</p>
-
-    <table>
-        <!-- Creating a 5x8 table with 0 in each cell -->
-        <tbody>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-        </tbody>
-    </table>
+    <table id="numberTable"></table>
 
     <script src="script.js"></script>
+    <script>
+        // Function to display a 5 by 8 table with counting numbers
+        function displayNumbers() {
+            var table = document.getElementById("numberTable");
+            var count = 1;
+
+            for (var i = 0; i < 5; i++) {
+                var row = table.insertRow(i);
+
+                for (var j = 0; j < 8; j++) {
+                    var cell = row.insertCell(j);
+                    cell.textContent = count;
+
+                    // Increment count and reset to 1 if it reaches 10
+                    count = (count % 10) + 1;
+                }
+            }
+        }
+
+        // Call the function when the page loads
+        displayNumbers();
+    </script>
 
 </body>
 </html>
