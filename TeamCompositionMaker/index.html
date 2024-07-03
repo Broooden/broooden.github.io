@@ -38,20 +38,30 @@
             var table = document.getElementById("numberTable");
             table.innerHTML = ''; // Clear any existing rows
 
-            var numbers = [];
-
             // Initialize a 2D array to store numbers for each column
-            for (var i = 0; i < 5; i++) {
-                numbers[i] = [];
-                for (var j = 1; j <= maxNumber; j++) {
-                    for (var k = 0; k < Math.floor(8 / maxNumber); k++) {
-                        numbers[i].push(j);
+            var columns = Array.from({ length: 5 }, () => []);
+            var counts = Array(maxNumber).fill(0); // Track the count of each number
+
+            // Calculate the ideal number of times each number should appear
+            var idealCount = Math.floor(8 * 5 / maxNumber);
+            var remainder = (8 * 5) % maxNumber;
+
+            // Distribute numbers to each column
+            for (var i = 0; i < 8; i++) {
+                for (var j = 0; j < 5; j++) {
+                    // Find the next number to add that hasn't been used too many times
+                    let number;
+                    do {
+                        number = Math.floor(Math.random() * maxNumber) + 1;
+                    } while (columns[j].includes(number) || counts[number - 1] > idealCount || (counts[number - 1] === idealCount && remainder === 0));
+
+                    // Add number to column and update count
+                    columns[j].push(number);
+                    counts[number - 1]++;
+                    if (counts[number - 1] === idealCount + 1) {
+                        remainder--;
                     }
                 }
-                for (var j = 1; j <= 8 % maxNumber; j++) {
-                    numbers[i].push(j);
-                }
-                numbers[i] = numbers[i].sort(() => Math.random() - 0.5);
             }
 
             // Create the table and fill it with numbers from the columns
@@ -59,7 +69,7 @@
                 var row = table.insertRow(i);
                 for (var j = 0; j < 5; j++) {
                     var cell = row.insertCell(j);
-                    cell.textContent = numbers[j][i];
+                    cell.textContent = columns[j][i];
                 }
             }
         }
