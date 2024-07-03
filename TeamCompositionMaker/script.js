@@ -1,5 +1,3 @@
-// script.js
-
 // Function to display a greeting
 function displayGreeting(name) {
     var greetingText = document.getElementById("greetingText");
@@ -10,12 +8,15 @@ function displayGreeting(name) {
 function updatePage() {
     var name = document.getElementById("nameInput").value;
     var maxNumber = parseInt(document.getElementById("maxNumberInput").value);
-    if (maxNumber > 0) {
-        displayGreeting(name);
-        displayNumbers(maxNumber);
-    } else {
-        alert("Please enter a valid number greater than 0");
+    
+    // Validate maxNumber input
+    if (isNaN(maxNumber) || maxNumber <= 0 || maxNumber > 100) {
+        alert("Please enter a valid number between 1 and 100");
+        return;
     }
+
+    displayGreeting(name);
+    displayNumbers(maxNumber);
 }
 
 // Function to display a 5 by 8 table with unique random numbers
@@ -43,7 +44,7 @@ function displayNumbers(maxNumber) {
     }
 
     // Shuffle the distribution array
-    distribution.sort(() => Math.random() - 0.5);
+    shuffleArray(distribution);
 
     // Initialize a 2D array to store numbers for each column
     var columns = Array.from({ length: 5 }, () => []);
@@ -68,5 +69,17 @@ function displayNumbers(maxNumber) {
     }
 }
 
-// Initial call to display the table with default max number (11)
-displayNumbers(11);
+// Helper function to shuffle an array (Fisher-Yates shuffle)
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+// Initialize the page with default values on load
+document.addEventListener("DOMContentLoaded", function() {
+    displayNumbers(11); // Initial default value
+});
