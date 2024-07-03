@@ -71,6 +71,11 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initial call to display the table with default max number (11)
+            displayNumbers(11);
+        });
+
         // Function to display a greeting
         function displayGreeting(name) {
             var greetingText = document.getElementById("greetingText");
@@ -138,9 +143,6 @@
                 }
             }
         }
-
-        // Initial call to display the table with default max number (11)
-        displayNumbers(11);
     </script>
 
 </body>
