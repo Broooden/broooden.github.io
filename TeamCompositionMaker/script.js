@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const greetingText = document.getElementById("greetingText");
         greetingText.textContent = "Hello, " + name;
     }
-asd
+
     function displayNumbers(numbers) {
         const table = document.getElementById("numberTable");
         table.innerHTML = ''; // Clear any existing rows
