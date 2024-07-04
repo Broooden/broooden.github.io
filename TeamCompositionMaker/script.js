@@ -36,13 +36,17 @@ document.addEventListener("DOMContentLoaded", function() {
         const frequencyMap = new Map();
         numbers.forEach(num => frequencyMap.set(num, 0));
 
-        // Function to get the least frequently used number not in the used set
-        function getLeastFrequentNumber(usedNumbers) {
+        // Create an array to track the last row each number was used in
+        const lastUsedRow = new Map();
+        numbers.forEach(num => lastUsedRow.set(num, -3)); // Initialize to a value that ensures no issues with initial placement
+
+        // Function to get the least frequently used number not in the used set and not used in the last 2 rows
+        function getLeastFrequentNumber(usedNumbers, rowIndex) {
             let minFreq = Infinity;
             let minNum = null;
 
             frequencyMap.forEach((freq, num) => {
-                if (freq < minFreq && !usedNumbers.has(num)) {
+                if (freq < minFreq && !usedNumbers.has(num) && (rowIndex - lastUsedRow.get(num) >= 3)) {
                     minFreq = freq;
                     minNum = num;
                 }
@@ -55,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
             const usedNumbers = new Set(); // Track used numbers in the current row
             for (let colIndex = 0; colIndex < 5; colIndex++) {
-                const number = getLeastFrequentNumber(usedNumbers);
+                const number = getLeastFrequentNumber(usedNumbers, rowIndex);
 
                 if (number === null) {
                     alert("Unable to generate a valid grid with the provided numbers. Please try a different set.");
@@ -65,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 rows[rowIndex].push(number);
                 usedNumbers.add(number);
                 frequencyMap.set(number, frequencyMap.get(number) + 1); // Increment the frequency count
+                lastUsedRow.set(number, rowIndex); // Update the last used row for the number
             }
         }
 
