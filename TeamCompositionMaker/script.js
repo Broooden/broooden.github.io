@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const frequencyMap = new Map();
         numbers.forEach(num => frequencyMap.set(num, 0));
 
-        // Create an array to track the last row each number was used in
-        const lastUsedRow = new Map();
-        numbers.forEach(num => lastUsedRow.set(num, -3)); // Initialize to a value that ensures no issues with initial placement
+        // Create an array to track the last two rows each number was used in
+        const lastUsedRows = new Map();
+        numbers.forEach(num => lastUsedRows.set(num, [-3, -3])); // Initialize to ensure no issues with initial placement
 
         // Function to get the least frequently used number not in the used set and not used in the last 2 rows
         function getLeastFrequentNumber(usedNumbers, rowIndex) {
@@ -46,7 +46,8 @@ document.addEventListener("DOMContentLoaded", function() {
             let minNum = null;
 
             frequencyMap.forEach((freq, num) => {
-                if (freq < minFreq && !usedNumbers.has(num) && (rowIndex - lastUsedRow.get(num) >= 3)) {
+                const lastRows = lastUsedRows.get(num);
+                if (freq < minFreq && !usedNumbers.has(num) && (rowIndex - lastRows[0] >= 3) && (rowIndex - lastRows[1] >= 3)) {
                     minFreq = freq;
                     minNum = num;
                 }
@@ -69,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 rows[rowIndex].push(number);
                 usedNumbers.add(number);
                 frequencyMap.set(number, frequencyMap.get(number) + 1); // Increment the frequency count
-                lastUsedRow.set(number, rowIndex); // Update the last used row for the number
+                lastUsedRows.get(number).shift(); // Remove the oldest row from the last used rows array
+                lastUsedRows.get(number).push(rowIndex); // Add current row index to last used rows
             }
         }
 
