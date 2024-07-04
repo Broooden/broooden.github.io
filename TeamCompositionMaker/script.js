@@ -32,17 +32,17 @@ document.addEventListener("DOMContentLoaded", function() {
         // Initialize an array to store numbers for each row
         const rows = Array.from({ length: 8 }, () => []);
 
-        // Fill rows with numbers ensuring no repeats in the same row
+        // Fill rows with numbers ensuring no repeats in the same row and no more than twice in a row
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
-            const usedNumbers = new Set(); // Track used numbers in the current row
+            const usedNumbersCount = {}; // Track count of each number in the current row
             for (let colIndex = 0; colIndex < 5; colIndex++) {
                 let number;
                 do {
                     number = numbers[Math.floor(Math.random() * numbers.length)]; // Random number from the list
-                } while (usedNumbers.has(number)); // Ensure number isn't already in the row
+                } while ((usedNumbersCount[number] || 0) >= 2); // Ensure number isn't already used more than twice
 
                 rows[rowIndex].push(number);
-                usedNumbers.add(number); // Add number to used set for current row
+                usedNumbersCount[number] = (usedNumbersCount[number] || 0) + 1; // Increment count of the number
             }
         }
 
