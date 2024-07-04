@@ -31,30 +31,55 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const rowCount = 8;
         const colCount = 5;
+        const totalCells = rowCount * colCount;
+        const numberCounts = {};
 
-        // Initialize an array to store numbers for each row
-        const rows = Array.from({ length: rowCount }, () => []);
+        // Initialize count for each number
+        numbers.forEach(num => numberCounts[num] = 0);
 
-        for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-            const usedNumbers = new Set(); // Track used numbers in the current row
-            for (let colIndex = 0; colIndex < colCount; colIndex++) {
-                let number;
-                do {
-                    number = numbers[Math.floor(Math.random() * numbers.length)]; // Random number from the list
-                } while (usedNumbers.has(number)); // Ensure number isn't already in the row
-
-                rows[rowIndex].push(number);
-                usedNumbers.add(number); // Add number to used set for current row
+        // Create an array of numbers with counts close to totalCells/numberOfNumbers
+        let distribution = [];
+        numbers.forEach(num => {
+            let count = Math.floor(totalCells / numbers.length);
+            for (let i = 0; i < count; i++) {
+                distribution.push(num);
             }
+        });
+
+        // Fill the rest of the cells
+        while (distribution.length < totalCells) {
+            let num = numbers[Math.floor(Math.random() * numbers.length)];
+            distribution.push(num);
         }
 
-        // Create the table and fill it with numbers from the rows
+        // Shuffle the distribution array
+        shuffleArray(distribution);
+
+        // Create the table and fill it with numbers ensuring no repeats in rows
         for (let i = 0; i < rowCount; i++) {
             const row = table.insertRow(i);
+            const usedNumbers = new Set();
+
             for (let j = 0; j < colCount; j++) {
-                const cell = row.insertCell(j);
-                cell.textContent = rows[i][j]; // Display number
+                let cell = row.insertCell(j);
+                let num;
+
+                // Find a number that hasn't been used in this row
+                do {
+                    num = distribution.pop();
+                } while (usedNumbers.has(num) && distribution.length > 0);
+
+                cell.textContent = num;
+                usedNumbers.add(num);
             }
+        }
+    }
+
+    // Helper function to shuffle an array (Fisher-Yates shuffle)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
     }
 });
