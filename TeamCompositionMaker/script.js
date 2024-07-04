@@ -36,18 +36,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const frequencyMap = new Map();
         numbers.forEach(num => frequencyMap.set(num, 0));
 
-        // Create an array to track the last two rows each number was used in
-        const lastUsedRows = new Map();
-        numbers.forEach(num => lastUsedRows.set(num, [-3, -3])); // Initialize to ensure no issues with initial placement
-
-        // Function to get the least frequently used number not in the used set and not used in the last 2 rows
-        function getLeastFrequentNumber(usedNumbers, rowIndex) {
+        // Function to get the least frequently used number not in the used set
+        function getLeastFrequentNumber(usedNumbers) {
             let minFreq = Infinity;
             let minNum = null;
 
             frequencyMap.forEach((freq, num) => {
-                const lastRows = lastUsedRows.get(num);
-                if (freq < minFreq && !usedNumbers.has(num) && (rowIndex - lastRows[0] >= 3) && (rowIndex - lastRows[1] >= 3)) {
+                if (freq < minFreq && !usedNumbers.has(num)) {
                     minFreq = freq;
                     minNum = num;
                 }
@@ -60,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
             const usedNumbers = new Set(); // Track used numbers in the current row
             for (let colIndex = 0; colIndex < 5; colIndex++) {
-                const number = getLeastFrequentNumber(usedNumbers, rowIndex);
+                const number = getLeastFrequentNumber(usedNumbers);
 
                 if (number === null) {
                     alert("Unable to generate a valid grid with the provided numbers. Please try a different set.");
@@ -70,8 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 rows[rowIndex].push(number);
                 usedNumbers.add(number);
                 frequencyMap.set(number, frequencyMap.get(number) + 1); // Increment the frequency count
-                lastUsedRows.get(number).shift(); // Remove the oldest row from the last used rows array
-                lastUsedRows.get(number).push(rowIndex); // Add current row index to last used rows
             }
         }
 
