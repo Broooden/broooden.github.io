@@ -32,33 +32,39 @@ document.addEventListener("DOMContentLoaded", function() {
         // Initialize an array to store numbers for each row
         const rows = Array.from({ length: 8 }, () => []);
 
-        // Fill rows with numbers ensuring no repeats in the same row
-        for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
-            const usedNumbers = new Set(); // Track used numbers in the current row
-            for (let colIndex = 0; colIndex < 5; colIndex++) {
-                let number;
-                let attempts = 0;
-                do {
-                    number = numbers[Math.floor(Math.random() * numbers.length)]; // Random number from the list
-                    attempts++;
-                } while (usedNumbers.has(number) && attempts < 100); // Ensure number isn't already in the row
+        // Function to fill half of the rows
+        function fillHalf(startIndex, endIndex) {
+            for (let rowIndex = startIndex; rowIndex < endIndex; rowIndex++) {
+                const usedNumbers = new Set(); // Track used numbers in the current row
+                for (let colIndex = 0; colIndex < 5; colIndex++) {
+                    let number;
+                    let attempts = 0;
+                    do {
+                        number = numbers[Math.floor(Math.random() * numbers.length)]; // Random number from the list
+                        attempts++;
+                    } while (usedNumbers.has(number) && attempts < 100); // Ensure number isn't already in the row
 
-                if (attempts >= 100) {
-                    alert("Unable to generate a valid grid with the provided numbers. Please try a different set.");
-                    return;
-                }
+                    if (attempts >= 100) {
+                        alert("Unable to generate a valid grid with the provided numbers. Please try a different set.");
+                        return;
+                    }
 
-                rows[rowIndex].push(number);
-                usedNumbers.add(number); // Add number to used set for current row
+                    rows[rowIndex].push(number);
+                    usedNumbers.add(number); // Add number to used set for current row
 
-                // Check for triple repeats and handle them
-                if (rowIndex >= 2 && rows[rowIndex - 1][colIndex] === number && rows[rowIndex - 2][colIndex] === number) {
-                    // Remove the last number and try another one
-                    rows[rowIndex].pop();
-                    colIndex--;
+                    // Check for triple repeats and handle them
+                    if (rowIndex >= 2 && rows[rowIndex - 1][colIndex] === number && rows[rowIndex - 2][colIndex] === number) {
+                        // Remove the last number and try another one
+                        rows[rowIndex].pop();
+                        colIndex--;
+                    }
                 }
             }
         }
+
+        // Fill the first half and second half of rows
+        fillHalf(0, 4);
+        fillHalf(4, 8);
 
         // Create the table and fill it with numbers from the rows
         for (let i = 0; i < 8; i++) {
