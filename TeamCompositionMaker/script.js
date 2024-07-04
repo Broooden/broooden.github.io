@@ -37,12 +37,26 @@ document.addEventListener("DOMContentLoaded", function() {
             const usedNumbers = new Set(); // Track used numbers in the current row
             for (let colIndex = 0; colIndex < 5; colIndex++) {
                 let number;
+                let attempts = 0;
                 do {
                     number = numbers[Math.floor(Math.random() * numbers.length)]; // Random number from the list
-                } while (usedNumbers.has(number)); // Ensure number isn't already in the row
+                    attempts++;
+                } while (usedNumbers.has(number) && attempts < 100); // Ensure number isn't already in the row
+
+                if (attempts >= 100) {
+                    alert("Unable to generate a valid grid with the provided numbers. Please try a different set.");
+                    return;
+                }
 
                 rows[rowIndex].push(number);
                 usedNumbers.add(number); // Add number to used set for current row
+
+                // Check for triple repeats and handle them
+                if (rowIndex >= 2 && rows[rowIndex - 1][colIndex] === number && rows[rowIndex - 2][colIndex] === number) {
+                    // Remove the last number and try another one
+                    rows[rowIndex].pop();
+                    colIndex--;
+                }
             }
         }
 
