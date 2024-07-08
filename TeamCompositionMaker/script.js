@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let number;
                 do {
                     if (distribution.length === 0) {
-                        // If distribution array is empty unexpectedly, break out to avoid infinite loop
+                        // If distribution array is unexpectedly empty, log error and break out
                         console.error("Distribution array unexpectedly empty.");
                         break;
                     }
