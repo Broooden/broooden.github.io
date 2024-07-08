@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greeting Page</title>
     <style>
+        body {
+            font-family: Arial, sans-serif; /* Default font for the body */
+        }
+
+        h1 {
+            font-family: 'Courier New', Courier, monospace; /* Font for the heading */
+        }
+
+        label, input, button, p {
+            font-family: 'Georgia', serif; /* Font for labels, input fields, button, and paragraph */
+        }
+
         table {
             border-collapse: collapse;
             width: 360px; /* Set the total width of the table */
+            font-family: 'Verdana', sans-serif; /* Font for the table */
         }
 
         table, th, td {
@@ -18,10 +31,7 @@
             width: 120px; /* Set the width of each cell */
             height: 80px;
             text-align: center;
-        }
-
-        .input-label, .input-field, .submit-button, .greeting-text {
-            font-family: 'Arial', sans-serif; /* Add your preferred font here */
+            font-size: 20px; /* Font size for table cells */
         }
     </style>
 </head>
@@ -29,15 +39,15 @@
 
     <h1>Greeting Page</h1>
 
-    <label for="nameInput" class="input-label">Enter your name:</label>
-    <input type="text" id="nameInput" class="input-field" placeholder="Type your name here">
+    <label for="nameInput">Enter your name:</label>
+    <input type="text" id="nameInput" placeholder="Type your name here">
 
-    <label for="numbersInput" class="input-label">Enter numbers (comma separated):</label>
-    <input type="text" id="numbersInput" class="input-field" placeholder="e.g., 2,4,6,9,7">
+    <label for="numbersInput">Enter numbers (comma separated):</label>
+    <input type="text" id="numbersInput" placeholder="e.g., 2,4,6,9,7">
 
-    <button id="submitButton" class="submit-button">Submit</button>
+    <button id="submitButton">Submit</button>
 
-    <p id="greetingText" class="greeting-text">Hello, ___</p>
+    <p id="greetingText">Hello, ___</p>
 
     <table id="numberTable"></table>
 
