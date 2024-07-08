@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function displayNumberCounts(gridData) {
         const counts = {};
 
-        // Count occurrences of each number across all rows
+        // Count occurrences of each number across all cells
         gridData.forEach(row => {
             row.forEach(num => {
                 if (counts[num]) {
