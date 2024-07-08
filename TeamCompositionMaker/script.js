@@ -51,8 +51,10 @@ document.addEventListener("DOMContentLoaded", function() {
         let index = 0;
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
             for (let colIndex = 0; colIndex < 5; colIndex++) {
-                rows[rowIndex][colIndex] = distribution[index];
-                index++;
+                if (index < distribution.length) {
+                    rows[rowIndex][colIndex] = distribution[index];
+                    index++;
+                }
             }
         }
 
