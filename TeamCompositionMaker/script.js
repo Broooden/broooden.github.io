@@ -36,39 +36,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Calculate the ideal number of times each number should appear
         const totalCells = 8 * 5;
-        const idealCount = Math.floor(totalCells / numbers.length);
-        const extraCount = totalCells % numbers.length;
 
-        // Create an array with the distribution of numbers
-        const distribution = [];
-        numbers.forEach(num => {
-            for (let i = 0; i < idealCount; i++) {
-                distribution.push(num);
-            }
-        });
-        for (let i = 0; i < extraCount; i++) {
-            distribution.push(numbers[i]);
+        // Adjust the distribution to fill all cells without skipping any
+        let distribution = numbers.slice(); // Copy numbers array
+        while (distribution.length < totalCells) {
+            distribution = distribution.concat(numbers);
         }
+        distribution = distribution.slice(0, totalCells); // Trim excess numbers
 
         // Shuffle the distribution array
         shuffleArray(distribution);
 
         // Fill rows with numbers ensuring no repeats in the same row
+        let index = 0;
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
-            const usedNumbers = new Set(); // Track used numbers in the current row
             for (let colIndex = 0; colIndex < 5; colIndex++) {
-                let number;
-                do {
-                    if (distribution.length === 0) {
-                        // If distribution array is unexpectedly empty, log error and break out
-                        console.error("Distribution array unexpectedly empty.");
-                        break;
-                    }
-                    number = distribution.pop(); // Get number from shuffled distribution
-                } while (usedNumbers.has(number)); // Ensure number isn't already in the row
-
-                rows[rowIndex].push(number);
-                usedNumbers.add(number); // Add number to used set for current row
+                rows[rowIndex][colIndex] = distribution[index];
+                index++;
             }
         }
 
