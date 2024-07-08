@@ -4,23 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greeting Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
-        body {
-            font-family: 'Verdana', sans-serif; /* Default font for the body */
-        }
-
-        h1 {
-            font-family: 'Courier New', Courier, monospace; /* Font for the heading */
-        }
-
-        label, input, button, p {
-            font-family: 'Verdana', serif; /* Font for labels, input fields, button, and paragraph */
-        }
-
         table {
             border-collapse: collapse;
             width: 360px; /* Set the total width of the table */
-            font-family: 'Verdana', sans-serif; /* Font for the table */
         }
 
         table, th, td {
@@ -31,13 +19,22 @@
             width: 120px; /* Set the width of each cell */
             height: 80px;
             text-align: center;
-            font-size: 20px; /* Font size for table cells */
+            font-family: 'Figtree', sans-serif; /* Apply Roboto font to table cells */
+        }
+
+        label, input, button, p {
+            font-family: 'Figtree', sans-serif; /* Apply Roboto font to labels, inputs, buttons, and paragraphs */
+        }
+
+        #numberCounts {
+            margin-top: 20px;
+            font-family: 'Figtree', sans-serif; /* Apply Roboto font to number counts */
         }
     </style>
 </head>
 <body>
 
-    <h1>Greeting Page</h1>
+    <h1 style="font-family: 'Figtree', sans-serif;">Greeting Page</h1>
 
     <label for="nameInput">Enter your name:</label>
     <input type="text" id="nameInput" placeholder="Type your name here">
@@ -50,6 +47,8 @@
     <p id="greetingText">Hello, ___</p>
 
     <table id="numberTable"></table>
+
+    <div id="numberCounts"></div>
 
     <script src="script.js"></script>
 
