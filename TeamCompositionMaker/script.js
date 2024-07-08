@@ -43,17 +43,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         distribution = distribution.slice(0, totalCells); // Trim excess numbers
 
-        // Shuffle the distribution array
-        shuffleArray(distribution);
-
-        // Fill rows with numbers ensuring no repeats in the same row
-        let index = 0;
+        // Ensure no repeats in each row
         for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
+            const usedNumbers = new Set();
             for (let colIndex = 0; colIndex < 5; colIndex++) {
-                if (index < distribution.length) {
-                    rows[rowIndex][colIndex] = distribution[index];
-                    index++;
-                }
+                let number;
+                do {
+                    number = distribution.pop(); // Take a number from the distribution
+                } while (usedNumbers.has(number)); // Ensure it's not already used in the row
+                rows[rowIndex].push(number);
+                usedNumbers.add(number); // Mark number as used in the row
             }
         }
 
@@ -67,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Update number counts below the table
-        updateNumberCounts(distribution);
+        updateNumberCounts(distribution.concat(...rows));
     }
 
     function updateNumberCounts(numbers) {
