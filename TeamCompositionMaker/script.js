@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const nameInput = document.getElementById("nameInput");
     const numbersInput = document.getElementById("numbersInput");
     const submitButton = document.getElementById("submitButton");
+    const numberCountsContainer = document.getElementById("numberCounts");
 
     submitButton.addEventListener("click", function() {
         updatePage();
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         displayGreeting(name);
         displayNumbers(numbers);
+        displayNumberCounts(numbers);
     }
 
     function displayGreeting(name) {
@@ -54,5 +56,27 @@ document.addEventListener("DOMContentLoaded", function() {
                 cell.textContent = rows[i][j]; // Display number
             }
         }
+    }
+
+    function displayNumberCounts(numbers) {
+        const counts = {};
+
+        // Count occurrences of each number
+        numbers.forEach(num => {
+            if (counts[num]) {
+                counts[num]++;
+            } else {
+                counts[num] = 1;
+            }
+        });
+
+        // Create the text to display counts
+        let countsText = "";
+        Object.keys(counts).forEach(key => {
+            countsText += `${key}: ${counts[key]}<br>`;
+        });
+
+        // Display counts below the table
+        numberCountsContainer.innerHTML = countsText;
     }
 });
