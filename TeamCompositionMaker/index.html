@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greeting Page</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
         table {
             border-collapse: collapse;
@@ -16,31 +15,38 @@
         }
 
         th, td {
-            width: 120px; /* Set the width of each cell */
-            height: 80px;
+            width: 72px; /* Set the width of each cell */
+            height: 48px;
             text-align: center;
-            font-family: 'Figtree', sans-serif; /* Apply Roboto font to table cells */
-        }
-
-        label, input, button, p {
-            font-family: 'Figtree', sans-serif; /* Apply Roboto font to labels, inputs, buttons, and paragraphs */
+            font-family: Arial, sans-serif; /* Change font here */
         }
 
         #numberCounts {
-            margin-top: 20px;
-            font-family: 'Figtree', sans-serif; /* Apply Roboto font to number counts */
+            margin-top: 10px;
+            font-family: Arial, sans-serif; /* Change font here */
+        }
+
+        .halftime {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+            height: 48px;
         }
     </style>
 </head>
 <body>
 
-    <h1 style="font-family: 'Figtree', sans-serif;">Greeting Page</h1>
+    <h1>Greeting Page</h1>
 
     <label for="nameInput">Enter your name:</label>
     <input type="text" id="nameInput" placeholder="Type your name here">
 
+    <br><br>
+
     <label for="numbersInput">Enter numbers (comma separated):</label>
-    <input type="text" id="numbersInput" placeholder="e.g., 2,4,6,9,7">
+    <input type="text" id="numbersInput" placeholder="e.g., 2, 4, 6, 8, 10">
+
+    <br><br>
 
     <button id="submitButton">Submit</button>
 
