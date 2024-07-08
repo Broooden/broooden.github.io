@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         displayGreeting(name);
-        const gridData = displayNumbers(numbers);
-        displayNumberCounts(gridData);
+        displayNumbers(numbers);
     }
 
     function displayGreeting(name) {
@@ -67,31 +66,27 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        // Return the generated grid data
-        return rows;
+        // Update number counts below the table
+        updateNumberCounts(distribution);
     }
 
-    function displayNumberCounts(gridData) {
+    function updateNumberCounts(numbers) {
         const counts = {};
 
-        // Count occurrences of each number across all cells
-        gridData.forEach(row => {
-            row.forEach(num => {
-                if (counts[num]) {
-                    counts[num]++;
-                } else {
-                    counts[num] = 1;
-                }
-            });
+        // Count occurrences of each number
+        numbers.forEach(num => {
+            if (counts[num]) {
+                counts[num]++;
+            } else {
+                counts[num] = 1;
+            }
         });
 
-        // Create the text to display counts
+        // Display counts below the table
         let countsText = "";
         Object.keys(counts).forEach(key => {
             countsText += `${key}: ${counts[key]}<br>`;
         });
-
-        // Display counts below the table
         numberCountsContainer.innerHTML = countsText;
     }
 
