@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         displayGreeting(name);
-        displayNumbers(numbers);
-        displayNumberCounts(numbers);
+        const gridData = displayNumbers(numbers);
+        displayNumberCounts(gridData);
     }
 
     function displayGreeting(name) {
@@ -56,18 +56,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 cell.textContent = rows[i][j]; // Display number
             }
         }
+
+        // Return the generated grid data
+        return rows;
     }
 
-    function displayNumberCounts(numbers) {
+    function displayNumberCounts(gridData) {
         const counts = {};
 
-        // Count occurrences of each number
-        numbers.forEach(num => {
-            if (counts[num]) {
-                counts[num]++;
-            } else {
-                counts[num] = 1;
-            }
+        // Count occurrences of each number across all rows
+        gridData.forEach(row => {
+            row.forEach(num => {
+                if (counts[num]) {
+                    counts[num]++;
+                } else {
+                    counts[num] = 1;
+                }
+            });
         });
 
         // Create the text to display counts
