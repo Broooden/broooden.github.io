@@ -59,6 +59,11 @@ document.addEventListener("DOMContentLoaded", function() {
             for (let colIndex = 0; colIndex < 5; colIndex++) {
                 let number;
                 do {
+                    if (distribution.length === 0) {
+                        // If distribution array is empty unexpectedly, break out to avoid infinite loop
+                        console.error("Distribution array unexpectedly empty.");
+                        break;
+                    }
                     number = distribution.pop(); // Get number from shuffled distribution
                 } while (usedNumbers.has(number)); // Ensure number isn't already in the row
 
